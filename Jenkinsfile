@@ -52,12 +52,18 @@ pipeline {
                
             }
         }
-         stage('Functional Test'){
+        stage('Functional Test'){
             steps {
                 dir('functional-test') {
                     git credentialsId: 'GitLogin', url: 'https://github.com/mruthes/tasks-functional-test.git'
                     bat 'mvn test'
                 }
+            }
+        }
+        stage("Deploy Prod"){
+            steps{
+                bat 'docker-compose build'
+                bat 'docker-compose up -d'
             }
         }
     }
