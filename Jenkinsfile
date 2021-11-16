@@ -77,14 +77,14 @@ pipeline {
     }
     post {
         always {
-            junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml, api-tests/target/surefire-reports/*.xml'
+            junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml, api-tests/target/surefire-reports/*.xml, functional-test/target/surefire-reports/*.xml, functional-test/target/failsafe-reports/*.xml'
             archiveArtifacts artifacts: 'target/tasks-backend.war', 'frontend/target/tasks.war', onlySuccessful: true
         }
         unsuccessul {
-            emailext attachlog: true, body: 'See the attached log below',subject : 'Build $BUILDER_NUMBER has failed'
+            emailext attachlog: true, body: 'See the attached log below',subject : 'Build $BUILDER_NUMBER has failed',to: 'mruthes+jenkins@gmail.com'
         }
         fixed {
-            emailext attachlog: true, body: 'See the attached log below',subject : 'Build his fine!!!',to: 
+            emailext attachlog: true, body: 'See the attached log below',subject : 'Build his fine!!!',to: 'mruthes+jenkins@gmail.com'
         }
     }
 }
