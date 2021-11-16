@@ -75,4 +75,16 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml, api-tests/target/surefire-reports/*.xml'
+            archiveArtifacts artifacts: 'target/tasks-backend.war', 'frontend/target/tasks.war', onlySuccessful: true
+        }
+        unsuccessul {
+            emailext attachlog: true, body: 'See the attached log below',subject : 'Build $BUILDER_NUMBER has failed'
+        }
+        fixed {
+            emailext attachlog: true, body: 'See the attached log below',subject : 'Build his fine!!!',to: 
+        }
+    }
 }
