@@ -30,7 +30,7 @@ services:
       - DATABASE_PORT=5432
       - DATABASE_USER=postgres
       - DATABASE_PASSWD=passwd
-      #- DATABASE_UPDATE=none
+      - DATABASE_UPDATE=none
     depends_on:
       - db
 
@@ -40,7 +40,7 @@ services:
     build:
         context: .
         args:
-          - WAR_FILE=tasks-frontend/target/tasks.war
+          - WAR_FILE=frontend/target/tasks.war
           - CONTEXT=tasks
     networks:
       - prod_net_front
